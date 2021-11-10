@@ -1,3 +1,6 @@
+html {
+    scroll-behavior: smooth;
+}
 body {
     margin: 0;
     padding: 0;
@@ -108,13 +111,16 @@ img {
   /* Caption text */
   .text {
     color: #f2f2f2;
-    font-size: 15px;
-    padding: 8px 12px;
+    font-size: 150px;
+    font-family: 'Gruppo', cursive;
     position: absolute;
+    padding-top: 1000px;
     bottom: 8px;
     width: 100%;
     text-align: center;
     z-index: 4;
+    left: 0;
+    transition:left 1s linear;
   }
   
   /* Number text (1/3 etc) */
