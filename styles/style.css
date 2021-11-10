@@ -16,9 +16,25 @@ img {
 }
 #subject {
     z-index: 2;
-    position: relative;
-    padding-top: 375px;
+    position: sticky;
+    padding-top: 325px;
+    animation:mysubject 100s;
+    -moz-animation:mysubject 100s; /* Firefox */
+    -webkit-animation:mysubject 100s; /* Safari and Chrome */               
 }
+
+@keyframes mysubject{
+    from {top: 0px;} 
+    
+}
+@-moz-keyframes mysubject{
+    from {top: 0px;} 
+    
+}
+@-webkit-keyframes mysubject{
+    from {top: 0px;} 
+    to{top:20px;} 
+}​
 #mainHeading {
     font-size: xx-large;
     color: rgb(233, 233, 233);
@@ -31,5 +47,119 @@ img {
          left: 0px; 
 }
 .effect {
-  
+  position: absolute;
 }
+
+/* carousel section HEAVILY borrowed from w3schools*/
+.carouselContainer {
+    max-width: 1000px;
+    position: absolute;
+    top: 0;
+    z-index: 4;
+    margin: 0;
+    padding-top: 1000px;
+    
+  }
+  
+/* Hide the images by default */
+.mySlides {
+    display: none;
+  }
+  
+  /* Next & previous buttons */
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    padding-top: 1000px;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    z-index: 4;
+  }
+  
+  /* Position the "next button" to the right */
+  .next {
+    margin-top: 1000px;
+    right: 0;
+    border-radius: 3px 0 0 3px;
+    z-index: 4;
+  }
+  /* Position the "prev button" to the right */
+  .prev {
+    margin-top: 1000px;
+    left: 0;
+    border-radius: 3px 0 0 3px;
+    z-index: 4;
+  }
+  
+  /* On hover, add a black background color with a little bit see-through */
+  .prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+    z-index: 4;
+  }
+  
+  /* Caption text */
+  .text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+    z-index: 4;
+  }
+  
+  /* Number text (1/3 etc) */
+  .numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: relative;
+    padding-top: 1000px ;
+    top: 0;
+    
+  }
+  
+  /* The dots/bullets/indicators */
+  .dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+    z-index: 4;
+  }
+  
+  .active, .dot:hover {
+    background-color: #717171;
+    z-index: 4;
+  }
+  
+  /* Fading animation */
+  .fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+  
+  @-webkit-keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
+  
+  @keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
