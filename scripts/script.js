@@ -1,3 +1,64 @@
+// Navigation functionality
+function initNavigation() {
+    const navToggle = document.getElementById('mobile-menu');
+    const navMenu = document.querySelector('.nav-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    // Mobile menu toggle
+    if (navToggle) {
+        navToggle.addEventListener('click', function() {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+    }
+
+    // Close mobile menu when clicking on a link
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+            navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+        } else {
+            navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+        }
+    });
+}
+
+// Contact form functionality
+function initContactForm() {
+    const contactForm = document.querySelector('.contact-form');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(contactForm);
+            const name = contactForm.querySelector('input[type="text"]').value;
+            const email = contactForm.querySelector('input[type="email"]').value;
+            const adventure = contactForm.querySelector('select').value;
+            const message = contactForm.querySelector('textarea').value;
+            
+            // Simple validation
+            if (!name || !email || !adventure || !message) {
+                alert('Please complete all fields.');
+                return;
+            }
+            
+            // Simulate form submission
+            alert(`Thank you, ${name}! We'll get back to you soon about your ${adventure} adventure.`);
+            contactForm.reset();
+        });
+    }
+}
+
 // Parallax Effect
 function initParallax() {
     const parallaxContainer = document.querySelector('.parallax-container');
@@ -34,50 +95,6 @@ function initParallax() {
     updateParallax();
 }
 
-// Carousel functionality (from w3schools.com)
-var slideIndex = 1;
-
-function initCarousel() {
-    showSlides(slideIndex);
-}
-
-// Next/previous controls
-function plusSlides(n) {
-    showSlides(slideIndex += n);
-}
-
-// Thumbnail image controls
-function currentSlide(n) {
-    showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-    var i;
-    var slides = document.getElementsByClassName("mySlides");
-    var dots = document.getElementsByClassName("dot");
-    
-    if (slides.length === 0) return; // No slides found
-    
-    if (n > slides.length) { slideIndex = 1; }
-    if (n < 1) { slideIndex = slides.length; }
-    
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    }
-    
-    for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-    }
-    
-    if (slides[slideIndex - 1]) {
-        slides[slideIndex - 1].style.display = "block";
-    }
-    
-    if (dots[slideIndex - 1]) {
-        dots[slideIndex - 1].className += " active";
-    }
-}
-
 // Smooth scrolling for anchor links
 function initSmoothScroll() {
     const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
@@ -90,20 +107,62 @@ function initSmoothScroll() {
             const target = document.querySelector(href);
             if (target) {
                 e.preventDefault();
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                
+                // Calculate offset for fixed navbar
+                const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
                 });
             }
         });
     });
 }
 
+// Scroll animations for sections
+function initScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Observe adventure cards
+    const adventureCards = document.querySelectorAll('.adventure-card');
+    adventureCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(card);
+    });
+
+    // Observe gear categories
+    const gearCategories = document.querySelectorAll('.gear-category');
+    gearCategories.forEach((category, index) => {
+        category.style.opacity = '0';
+        category.style.transform = 'translateY(30px)';
+        category.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        observer.observe(category);
+    });
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+    initNavigation();
     initParallax();
-    initCarousel();
     initSmoothScroll();
+    initContactForm();
+    initScrollAnimations();
 });
 
 // Handle window load for images
