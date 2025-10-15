@@ -1,79 +1,93 @@
 html {
     scroll-behavior: smooth;
 }
+
 body {
     margin: 0;
     padding: 0;
-}
-img {
-    padding: 0;
-    margin: 0 auto;
-    max-width: 100%;
-}
-#background {
-    z-index: 1;
-    position: absolute;
-    padding: 0;
-    display: block;
-    margin: 0 auto;
-}
-#subject {
-    z-index: 2;
-    position: sticky;
-    padding-top: 325px;
-    animation:mysubject 100s;
-    -moz-animation:mysubject 100s; /* Firefox */
-    -webkit-animation:mysubject 100s; /* Safari and Chrome */               
+    font-family: 'Poppins', sans-serif;
 }
 
-@keyframes mysubject{
-    from {top: 0px;} 
-    
-}
-@-moz-keyframes mysubject{
-    from {top: 0px;} 
-    
-}
-@-webkit-keyframes mysubject{
-    from {top: 0px;} 
-    to{top:20px;} 
-}​
-#mainHeading {
-    font-size: xx-large;
-    color: rgb(233, 233, 233);
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: 900;
-    text-align: center;
-    z-index: 3;
-    position:relative; 
-         top: -500px; 
-         left: 0px; 
-}
-.effect {
-  position: absolute;
+/* Parallax Container */
+.parallax-container {
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* carousel section HEAVILY borrowed from w3schools*/
-.carouselContainer {
-    max-width: 1000px;
+.parallax-layer {
     position: absolute;
     top: 0;
-    z-index: 4;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#background {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+#subject {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    z-index: 2;
+}
+
+#mainHeading {
+    z-index: 3;
+    text-align: center;
+}
+
+#mainHeading h1 {
+    font-size: 4rem;
+    color: rgb(233, 233, 233);
+    font-family: 'Gruppo', cursive;
+    font-weight: 900;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     margin: 0;
-    padding-top: 1000px;
-    
-  }
-  
+    letter-spacing: 3px;
+}
+
+/* Content Section */
+.content-section {
+    position: relative;
+    z-index: 10;
+    background: #fff;
+    min-height: 100vh;
+    padding: 50px 20px;
+}
+
+/* Carousel section */
+.carouselContainer {
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+}
+
 /* Hide the images by default */
 .mySlides {
     display: none;
-  }
-  
-  /* Next & previous buttons */
-  .prev, .next {
+}
+
+.mySlides img {
+    width: 100%;
+    height: auto;
+}
+
+/* Next & previous buttons */
+.prev, .next {
     cursor: pointer;
     position: absolute;
-    padding-top: 1000px;
     top: 50%;
     width: auto;
     margin-top: -22px;
@@ -84,58 +98,57 @@ img {
     transition: 0.6s ease;
     border-radius: 0 3px 3px 0;
     user-select: none;
-    z-index: 4;
-  }
-  
-  /* Position the "next button" to the right */
-  .next {
-    margin-top: 1000px;
+    background-color: rgba(0,0,0,0.5);
+}
+
+/* Position the "next button" to the right */
+.next {
     right: 0;
     border-radius: 3px 0 0 3px;
-    z-index: 4;
-  }
-  /* Position the "prev button" to the right */
-  .prev {
-    margin-top: 1000px;
+}
+
+/* Position the "prev button" to the left */
+.prev {
     left: 0;
     border-radius: 3px 0 0 3px;
-    z-index: 4;
-  }
-  
-  /* On hover, add a black background color with a little bit see-through */
-  .prev:hover, .next:hover {
+}
+
+/* On hover, add a darker background */
+.prev:hover, .next:hover {
     background-color: rgba(0,0,0,0.8);
-    z-index: 4;
-  }
-  
-  /* Caption text */
-  .text {
+}
+
+/* Caption text */
+.text {
     color: #f2f2f2;
-    font-size: 150px;
+    font-size: 4rem;
     font-family: 'Gruppo', cursive;
     position: absolute;
-    padding-top: 1000px;
-    bottom: 8px;
+    bottom: 20px;
     width: 100%;
     text-align: center;
-    z-index: 4;
-    left: 0;
-    transition:left 1s linear;
-  }
-  
-  /* Number text (1/3 etc) */
-  .numbertext {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    transition: left 1s linear;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
     color: #f2f2f2;
     font-size: 12px;
     padding: 8px 12px;
-    position: relative;
-    padding-top: 1000px ;
+    position: absolute;
     top: 0;
-    
-  }
-  
-  /* The dots/bullets/indicators */
-  .dot {
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 0 0 3px 0;
+}
+
+/* The dots/bullets/indicators */
+.dots-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.dot {
     cursor: pointer;
     height: 15px;
     width: 15px;
@@ -144,28 +157,59 @@ img {
     border-radius: 50%;
     display: inline-block;
     transition: background-color 0.6s ease;
-    z-index: 4;
-  }
-  
-  .active, .dot:hover {
+}
+
+.active, .dot:hover {
     background-color: #717171;
-    z-index: 4;
-  }
-  
-  /* Fading animation */
-  .fade {
+}
+
+/* Fading animation */
+.fade {
     -webkit-animation-name: fade;
     -webkit-animation-duration: 1.5s;
     animation-name: fade;
     animation-duration: 1.5s;
-  }
-  
-  @-webkit-keyframes fade {
+}
+
+@-webkit-keyframes fade {
     from {opacity: .4}
     to {opacity: 1}
-  }
-  
-  @keyframes fade {
+}
+
+@keyframes fade {
     from {opacity: .4}
     to {opacity: 1}
-  }
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+    color: #666;
+}
+
+footer a {
+    color: #333;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #mainHeading h1 {
+        font-size: 2.5rem;
+    }
+    
+    .text {
+        font-size: 2rem;
+    }
+    
+    .carouselContainer {
+        max-width: 100%;
+        margin: 0 10px;
+    }
+}
